@@ -9,7 +9,11 @@ function App() {
     quote: "",
     character: "",
   });
+  const [character, setCharacter] = useState("");
   const htmlData = data
+    .filter((quote) =>
+      quote.character.toLowerCase().includes(character.toLowerCase())
+    )
     .filter((quote) => quote.quote.toLowerCase().includes(search.toLowerCase()))
     .map((phrase, index) => (
       <li className="quote__item" key={index}>
@@ -40,6 +44,10 @@ function App() {
       character: "",
     });
   }
+  function handleSearchCharacter(event) {
+    event.preventDefault();
+    setCharacter(event.target.value);
+  }
   return (
     <div className="App">
       <header>
@@ -56,7 +64,7 @@ function App() {
             value={search}
           />
           <label htmlFor="character">Filtrar por personaje</label>
-          <select>
+          <select id="character" onChange={handleSearchCharacter}>
             <option value="Todos">Todos</option>
             <option value="Joey">Joey</option>
             <option value="Rachel">Rachel</option>
