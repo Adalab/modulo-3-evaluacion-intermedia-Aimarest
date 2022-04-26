@@ -4,7 +4,18 @@ import phrasesList from "../data/phrases.json";
 function App() {
   //Variables de estado:
   const [data, setData] = useState(phrasesList);
-  const htmlData = data.map((phrase, index) => <li></li>);
+  const htmlData = data.map((phrase, index) => (
+    <li className="quote__item" key={index}>
+      <p className="phrase__character">
+        <label>Personaje:</label>
+        {phrase.character}
+      </p>
+      <p className="phrase__quote">
+        <label>Frase:</label>
+        {phrase.quote}
+      </p>
+    </li>
+  ));
   return (
     <div className="App">
       <header>
@@ -30,6 +41,9 @@ function App() {
           </select>
         </form>
       </header>
+      <main>
+        <ul className="quotes__list">{htmlData}</ul>
+      </main>
     </div>
   );
 }
