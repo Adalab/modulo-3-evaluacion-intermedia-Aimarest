@@ -4,7 +4,15 @@ import phrasesList from "../data/phrases.json";
 function App() {
   //Variables de estado:
   const [data, setData] = useState(phrasesList);
-  const htmlData = data.map((phrase, index) => (
+  const [search, setSearch] = useState("");
+ const [newQuote,setNewQuote] = useState({
+   quote:"",
+   character:""
+ });
+  const htmlData = data
+  .filter((quote)=>
+  quote.quote.toLowerCase().includes(search.toLowerCase))
+  .map((phrase, index) => (
     <li className="quote__item" key={index}>
       <p className="phrase__character">
         <label>Personaje:</label>
@@ -16,6 +24,23 @@ function App() {
       </p>
     </li>
   ));
+  function handleSearchQuote(event) {
+    setSearch(event.target.value);
+   function handleNewQuote(event){
+    setNewQuote({
+      ...newQuote,[event.target.index]:event.target.value,
+    });
+   };
+   function handleClick(event){
+     event.preventDefault();
+     setData(
+       [...data,newQuote]);
+    setNewQuote({
+        quote:"",
+        character:"",
+       });
+     
+   };
   return (
     <div className="App">
       <header>
@@ -28,6 +53,8 @@ function App() {
             type="search"
             name="search"
             placeholder="Filtrar frases"
+            onChange={handleSearchQuote}
+            value={search}
           />
           <label htmlFor="character">Filtrar por personaje</label>
           <select>
@@ -43,6 +70,33 @@ function App() {
       </header>
       <main>
         <ul className="quotes__list">{htmlData}</ul>
+        <form className="new-quote__form">
+          <h2 className="new-quote__title">Añadir una nueva frase</h2>
+          <input
+            className="new-quote__input"
+            type="text"
+            name="quote"
+            id="quote"
+            placeholder="Frase"
+            onChange={handleNewQuote}
+            value={newQuote.quote}
+          />
+          <input
+            className="new-quote__input"
+            type="text"
+            name="character"
+            id="character"
+            placeholder="Personaje"
+            onChange={handleNewQuote}
+            value={newQuote.character}
+          />
+           <input
+            className="new-quote__btn"
+            type="submit"
+            value="Añadir una nueva frase"
+            onClick={handleClick}
+          />
+          </form>
       </main>
     </div>
   );
