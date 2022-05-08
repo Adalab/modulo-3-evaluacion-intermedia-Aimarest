@@ -6,6 +6,7 @@ function App() {
   //Variables de estado:
   const [data, setData] = useState(objectToExport.get("quotes", []));
   const [search, setSearch] = useState("");
+  const [emptyMessage, setEmptyMessage] = useState("");
   const [newQuote, setNewQuote] = useState({
     quote: "",
     character: "",
@@ -52,15 +53,25 @@ function App() {
       ...newQuote,
       [event.target.id]: event.target.value,
     });
+
+    objectToExport.set("quotes", newQuote);
   }
   function handleClick(event) {
     event.preventDefault();
+    if (!newQuote.character || !newQuote.quote) {
+      setEmptyMessage(
+        "Debe escribir una frase y el nombre del personaje para que se muestre en la lista"
+      );
+      return;
+    }
+    setEmptyMessage(null);
     setData([...data, newQuote]);
     setNewQuote({
       quote: "",
       character: "",
     });
   }
+
   function handleSearchCharacter(event) {
     event.preventDefault();
     setCharacter(event.target.value);
@@ -108,6 +119,7 @@ function App() {
             placeholder="Frase"
             onChange={handleNewQuote}
             value={newQuote.quote}
+            required
           />
           <input
             className="new-quote__input"
@@ -117,6 +129,7 @@ function App() {
             placeholder="Personaje"
             onChange={handleNewQuote}
             value={newQuote.character}
+            required
           />
           <input
             className="new-quote__btn"
@@ -125,6 +138,7 @@ function App() {
             onClick={handleClick}
           />
         </form>
+        {emptyMessage && <div>{emptyMessage}</div>}
       </main>
     </div>
   );
