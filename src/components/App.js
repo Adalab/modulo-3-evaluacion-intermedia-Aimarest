@@ -33,18 +33,21 @@ function App() {
       }
     })
     .filter((quote) => quote.quote.toLowerCase().includes(search.toLowerCase()))
-    .map((phrase, index) => (
-      <li className="quote__item" key={index}>
-        <p className="phrase__character">
-          <label>Personaje:</label>
-          {phrase.character}
-        </p>
-        <p className="phrase__quote">
-          <label>Frase:</label>
-          {phrase.quote}
-        </p>
-      </li>
-    ));
+    .map((phrase, index) => {
+      return (
+        <li className="quote__item" key={index}>
+          <p className="phrase__character">
+            <label>Personaje:</label>
+            {phrase.character}
+          </p>
+          <p className="phrase__quote">
+            <label>Frase:</label>
+            {phrase.quote}
+          </p>
+        </li>
+      );
+    });
+
   function handleSearchQuote(event) {
     setSearch(event.target.value);
   }
@@ -53,8 +56,7 @@ function App() {
       ...newQuote,
       [event.target.id]: event.target.value,
     });
-
-    objectToExport.set("quotes", newQuote);
+    objectToExport.set("quotes", [...data, newQuote]);
   }
   function handleClick(event) {
     event.preventDefault();
@@ -78,7 +80,7 @@ function App() {
   }
   return (
     <div className="App">
-      <header>
+      <header className="header">
         <h1 className="header__title">Frases de Friends</h1>
         <form>
           <label htmlFor="search">Filtrar por frase</label>
@@ -138,7 +140,7 @@ function App() {
             onClick={handleClick}
           />
         </form>
-        {emptyMessage && <div>{emptyMessage}</div>}
+        {emptyMessage && <div className="error">{emptyMessage}</div>}
       </main>
     </div>
   );
