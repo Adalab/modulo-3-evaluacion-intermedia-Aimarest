@@ -1,19 +1,36 @@
 import "../styles/App.scss";
-import { useState } from "react";
-import phrasesList from "../data/phrases.json";
+import { useState, useEffect } from "react";
+import objectToExport from "../services/LocalStorage";
+import ApiData from "../services/ApiData";
 function App() {
   //Variables de estado:
-  const [data, setData] = useState(phrasesList);
+  const [data, setData] = useState(objectToExport.get("quotes", []));
   const [search, setSearch] = useState("");
   const [newQuote, setNewQuote] = useState({
     quote: "",
     character: "",
   });
-  const [character, setCharacter] = useState("");
+  const [character, setCharacter] = useState("all");
+  useEffect(() => {
+    if (data.length === 0) {
+      ApiData().then((dataFromApi) => {
+        objectToExport.set("quotes", dataFromApi);
+        setData(dataFromApi);
+      });
+    }
+  }, []);
   const htmlData = data
-    .filter((quote) =>
-      quote.character.toLowerCase().includes(character.toLowerCase())
-    )
+    .filter((quote) => {
+      if (character === "all") {
+        return true;
+      } else if (
+        quote.character.toLowerCase().includes(character.toLowerCase())
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    })
     .filter((quote) => quote.quote.toLowerCase().includes(search.toLowerCase()))
     .map((phrase, index) => (
       <li className="quote__item" key={index}>
@@ -64,8 +81,12 @@ function App() {
             value={search}
           />
           <label htmlFor="character">Filtrar por personaje</label>
-          <select id="character" onChange={handleSearchCharacter}>
-            <option value="Todos">Todos</option>
+          <select
+            id="character"
+            value={character}
+            onChange={handleSearchCharacter}
+          >
+            <option value="all">Todos</option>
             <option value="Joey">Joey</option>
             <option value="Rachel">Rachel</option>
             <option value="Chandler">Chandler</option>
