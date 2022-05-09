@@ -82,65 +82,70 @@ function App() {
     <div className="App">
       <header className="header">
         <h1 className="header__title">Frases de Friends</h1>
-        <form>
-          <label htmlFor="search">Filtrar por frase</label>
-          <input
-            className="header__search"
-            autoComplete="off"
-            type="search"
-            name="search"
-            placeholder="Filtrar frases"
-            onChange={handleSearchQuote}
-            value={search}
-          />
-          <label htmlFor="character">Filtrar por personaje</label>
-          <select
-            id="character"
-            value={character}
-            onChange={handleSearchCharacter}
-          >
-            <option value="all">Todos</option>
-            <option value="Joey">Joey</option>
-            <option value="Rachel">Rachel</option>
-            <option value="Chandler">Chandler</option>
-            <option value="Phoebe">Phoebe</option>
-            <option value="Ross">Ross</option>
-            <option value="Monica">Monica</option>
-          </select>
-        </form>
       </header>
-      <main>
+      <main className="main">
+        <section className="main__form">
+          <form className="search">
+            <label htmlFor="search__label">Filtrar por frase</label>
+            <input
+              className="search__input"
+              autoComplete="off"
+              type="search"
+              name="search"
+              placeholder="Filtrar frases"
+              onChange={handleSearchQuote}
+              value={search}
+            />
+            <label className="search__label" htmlFor="character">
+              Filtrar por personaje
+            </label>
+            <select
+              className="search__select"
+              id="character"
+              value={character}
+              onChange={handleSearchCharacter}
+            >
+              <option value="all">Todos</option>
+              <option value="Joey">Joey</option>
+              <option value="Rachel">Rachel</option>
+              <option value="Chandler">Chandler</option>
+              <option value="Phoebe">Phoebe</option>
+              <option value="Ross">Ross</option>
+              <option value="Monica">Monica</option>
+            </select>
+          </form>
+          <form className="new-quote__form">
+            <h2 className="new-quote__title">Añadir una nueva frase</h2>
+            <input
+              className="new-quote__input"
+              type="text"
+              name="quote"
+              id="quote"
+              placeholder="Frase"
+              onChange={handleNewQuote}
+              value={newQuote.quote}
+              required
+            />
+            <input
+              className="new-quote__input"
+              type="text"
+              name="character"
+              id="character"
+              placeholder="Personaje"
+              onChange={handleNewQuote}
+              value={newQuote.character}
+              required
+            />
+            <input
+              className="new-quote__btn"
+              type="submit"
+              value="Añadir una nueva frase"
+              onClick={handleClick}
+            />
+          </form>
+          {emptyMessage && <div className="error">{emptyMessage}</div>}
+        </section>
         <ul className="quotes__list">{htmlData}</ul>
-        <form className="new-quote__form">
-          <h2 className="new-quote__title">Añadir una nueva frase</h2>
-          <input
-            className="new-quote__input"
-            type="text"
-            name="quote"
-            id="quote"
-            placeholder="Frase"
-            onChange={handleNewQuote}
-            value={newQuote.quote}
-            required
-          />
-          <input
-            className="new-quote__input"
-            type="text"
-            name="character"
-            id="character"
-            placeholder="Personaje"
-            onChange={handleNewQuote}
-            value={newQuote.character}
-            required
-          />
-          <input
-            className="new-quote__btn"
-            type="submit"
-            value="Añadir una nueva frase"
-            onClick={handleClick}
-          />
-        </form>
-        {emptyMessage && <div className="error">{emptyMessage}</div>}
       </main>
     </div>
   );
