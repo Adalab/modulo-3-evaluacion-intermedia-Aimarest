@@ -37,11 +37,11 @@ function App() {
       return (
         <li className="quote__item" key={index}>
           <p className="phrase__character">
-            <label>Personaje:</label>
+            <label>Personaje: </label>
             {phrase.character}
           </p>
           <p className="phrase__quote">
-            <label>Frase:</label>
+            <label className="phrase__label">Frase: </label>
             {phrase.quote}
           </p>
         </li>
@@ -86,7 +86,9 @@ function App() {
       <main className="main">
         <section className="main__form">
           <form className="search">
-            <label htmlFor="search__label">Filtrar por frase</label>
+            <label className="search__label" htmlFor="search__label">
+              Filtrar por frase
+            </label>
             <input
               className="search__input"
               autoComplete="off"

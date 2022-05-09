@@ -14,11 +14,17 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  @media all and (min-width:1500px){
+    height: 800px;
+  }
   &__title {
     position: absolute;
     top: 150px;
     font-size: 40px;
     color: white;
+    @media all and (min-width:1500px){
+        top: 200px;
+      }
   }
 }
 .main {
@@ -33,6 +39,8 @@
     display: flex;
     flex-direction: column;
     height: max-content;
+    padding: 50px;
+    text-align: center;
   }
 }
 .search {
@@ -40,10 +48,63 @@ margin-top:20px;
 display:flex;
 justify-content:center;
 align-items: center;
+
+&__label{
+    color:white;
+    font-size: 25px;
+    font-weight: 600;
+    
+}
 &__input{
 margin:10px;
+border-radius: 8px;
+text-align: center;
+padding:5px;
+font-size: 20px;
+color:rgba(121, 24, 79, 0.587); 
+ 
 }
 &__select{
-
+    border-radius: 8px;
+    text-align: center;
+    padding:5px;
+font-size: 20px;
+color:white;
+background-color:rgba(121, 24, 79, 0.587); 
+margin-left:10px;
 }
+}
+.quote__item{
+    border:2px dotted white;
+    padding:10px;
+    width:400px;
+    border-radius: 5px;
+}
+.phrase__character{
+    font-size: 25px;
+    font-weight: 600;
+    text-decoration:underline 5px rgb(121, 24, 79,); 
+}
+.phrase__label{
+    font-weight: 600;
+    font-size: 22px;
+}
+.new-quote__form{
+text-align: center;
+margin:20px;
+}
+.new-quote__input{
+margin:2px;
+border-radius: 5px;
+text-align: center;
+font-size: 20px;
+}
+.new-quote__title{
+    text-align: center;
+}
+.new-quote__btn{
+    margin-top:20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
 }
